@@ -64,7 +64,7 @@ export default function ServicesPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      <Header theme="dark" active="services" />
+      <Header theme="light" active="services" />
 
       <main className="flex-grow">
         {/* =========================================================================

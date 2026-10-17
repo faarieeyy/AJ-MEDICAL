@@ -9,7 +9,7 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      <Header theme="dark" />
+      <Header theme="light" />
       <main className="flex-grow bg-white py-20 px-4 sm:px-6 lg:px-8 rounded-t-[3rem] mt-6">
         <div className="max-w-3xl mx-auto text-slate-700 leading-relaxed space-y-6">
           <span className="text-xs font-bold text-sky-600 uppercase tracking-widest">Legal Information</span>

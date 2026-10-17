@@ -32,8 +32,8 @@ export default function AboutPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      {/* Real Top Header (Dark Theme) */}
-      <Header theme="dark" active="about" />
+      {/* Real Top Header (Light Theme) */}
+      <Header theme="light" active="about" />
 
       <main className="flex-grow">
         {/* =========================================================================

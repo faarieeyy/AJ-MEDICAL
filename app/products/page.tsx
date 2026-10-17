@@ -83,7 +83,7 @@ export default function ProductsPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      <Header theme="dark" active="products" />
+      <Header theme="light" active="products" />
 
       <main className="flex-grow">
         {/* Hero Header */}

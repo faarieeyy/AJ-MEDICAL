@@ -50,7 +50,7 @@ export default function BlogPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      <Header theme="dark" active="blog" />
+      <Header theme="light" active="blog" />
 
       <main className="flex-grow">
         {/* Hero Header */}

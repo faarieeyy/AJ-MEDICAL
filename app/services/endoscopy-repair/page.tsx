@@ -118,8 +118,8 @@ export default function EndoscopyRepairPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      {/* Real Top Header (Dark Theme) */}
-      <Header theme="dark" active="services" />
+      {/* Real Top Header (Light Theme) */}
+      <Header theme="light" active="services" />
 
       <main className="flex-grow">
         {/* =========================================================================

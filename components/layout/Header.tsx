@@ -148,7 +148,7 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
                   : 'bg-[#06162d] text-white hover:bg-[#0c2b57] hover:shadow-md'
               }`}
             >
-              <span>{isDark ? 'Get a Quote' : 'Get a Free Consultation'}</span>
+              <span>{active === 'products' || active === 'services' ? 'Get a Quote' : 'Get a Free Consultation'}</span>
               <ArrowRight size={15} />
             </button>
 

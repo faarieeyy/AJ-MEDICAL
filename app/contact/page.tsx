@@ -128,8 +128,8 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#06162d]">
-      {/* Real Top Header (Dark Theme) */}
-      <Header theme="dark" active="contact" />
+      {/* Real Top Header (Light Theme) */}
+      <Header theme="light" active="contact" />
 
       <main className="flex-grow">
         {/* =========================================================================
