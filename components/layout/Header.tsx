@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, Menu, X, ArrowRight } from 'lucide-react';
@@ -9,20 +9,37 @@ import SearchModal from '../ui/SearchModal';
 interface HeaderProps {
   theme?: 'light' | 'dark';
   active?: 'home' | 'about' | 'services' | 'products' | 'blog' | 'contact';
+  transparent?: boolean;
 }
 
-export default function Header({ theme = 'light', active = 'home' }: HeaderProps) {
+export default function Header({ theme = 'light', active = 'home', transparent = false }: HeaderProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isConsultOpen, setIsConsultOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const isDark = theme === 'dark';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          isDark
+          transparent
+            ? isScrolled
+              ? isDark
+                ? 'bg-[#02182f]/95 backdrop-blur-md border-b border-white/10 shadow-lg'
+                : 'bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm'
+              : 'bg-transparent border-b border-transparent'
+            : isDark
             ? 'bg-[#06162d]/95 backdrop-blur-md border-b border-white/10'
             : 'bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm'
         }`}
@@ -30,9 +47,9 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="AJ Medical Equipment Trading Home">
-            <div className="relative h-11 w-48 sm:w-56">
+            <div className="relative h-11 w-52 sm:w-60">
               <Image
-                src={isDark ? '/images/logo-white.webp' : '/images/logo-dark.webp'}
+                src={isDark ? '/images/logo-white-hexagon.webp' : '/images/logo-dark-hexagon.webp'}
                 alt="AJ MEDICAL EQUIPMENT TRADING"
                 fill
                 className="object-contain object-left transition-transform duration-200 group-hover:scale-[1.02]"
@@ -48,7 +65,7 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
               className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
                 active === 'home'
                   ? isDark ? 'text-sky-400' : 'text-sky-600'
-                  : isDark ? 'text-slate-200 hover:text-sky-400' : 'text-slate-700 hover:text-sky-600'
+                  : isDark ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-sky-600'
               }`}
             >
               Home
@@ -62,7 +79,7 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
               className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
                 active === 'about'
                   ? isDark ? 'text-sky-400' : 'text-sky-600'
-                  : isDark ? 'text-slate-200 hover:text-sky-400' : 'text-slate-700 hover:text-sky-600'
+                  : isDark ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-sky-600'
               }`}
             >
               About Us
@@ -76,7 +93,7 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
               className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
                 active === 'services'
                   ? isDark ? 'text-sky-400' : 'text-sky-600'
-                  : isDark ? 'text-slate-200 hover:text-sky-400' : 'text-slate-700 hover:text-sky-600'
+                  : isDark ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-sky-600'
               }`}
             >
               Services
@@ -90,7 +107,7 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
               className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
                 active === 'products'
                   ? isDark ? 'text-sky-400' : 'text-sky-600'
-                  : isDark ? 'text-slate-200 hover:text-sky-400' : 'text-slate-700 hover:text-sky-600'
+                  : isDark ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-sky-600'
               }`}
             >
               Products
@@ -99,29 +116,31 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
               )}
             </Link>
 
-            <Link
-              href="/blog"
-              className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
-                active === 'blog'
-                  ? isDark ? 'text-sky-400' : 'text-sky-600'
-                  : isDark ? 'text-slate-200 hover:text-sky-400' : 'text-slate-700 hover:text-sky-600'
-              }`}
-            >
-              Blog
-              {active === 'blog' && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500 rounded-full" />
-              )}
-            </Link>
+            {!transparent && (
+              <Link
+                href="/blog"
+                className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
+                  active === 'blog'
+                    ? isDark ? 'text-sky-400' : 'text-sky-600'
+                    : isDark ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-sky-600'
+                }`}
+              >
+                Blog
+                {active === 'blog' && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500 rounded-full" />
+                )}
+              </Link>
+            )}
 
             <Link
               href="/contact"
               className={`text-sm font-semibold transition-colors duration-200 relative py-1 ${
                 active === 'contact'
                   ? isDark ? 'text-sky-400' : 'text-sky-600'
-                  : isDark ? 'text-slate-200 hover:text-sky-400' : 'text-slate-700 hover:text-sky-600'
+                  : isDark ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-sky-600'
               }`}
             >
-              Contact Us
+              Contact
               {active === 'contact' && (
                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500 rounded-full" />
               )}
@@ -130,25 +149,27 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
 
           {/* Action Controls */}
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsSearchOpen(true)}
-              className={`p-2.5 rounded-full transition-colors ${
-                isDark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-600 hover:bg-slate-100'
-              }`}
-              aria-label="Search equipment and services"
-            >
-              <Search size={19} />
-            </button>
+            {(!transparent || isScrolled) && (
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className={`p-2.5 rounded-full transition-colors ${
+                  isDark ? 'text-white hover:bg-white/10' : 'text-slate-600 hover:bg-slate-100'
+                }`}
+                aria-label="Search equipment and services"
+              >
+                <Search size={19} />
+              </button>
+            )}
 
             <button
               onClick={() => setIsConsultOpen(true)}
               className={`hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 shadow-sm ${
                 isDark
-                  ? 'bg-transparent border border-white/60 text-white hover:bg-white hover:text-[#06162d]'
+                  ? 'bg-transparent border border-white/80 text-white hover:bg-white hover:text-[#06162d]'
                   : 'bg-[#06162d] text-white hover:bg-[#0c2b57] hover:shadow-md'
               }`}
             >
-              <span>{active === 'products' || active === 'services' ? 'Get a Quote' : 'Get a Free Consultation'}</span>
+              <span>{active === 'products' || active === 'services' || active === 'about' ? 'Get a Quote' : 'Get a Free Consultation'}</span>
               <ArrowRight size={15} />
             </button>
 
@@ -177,7 +198,7 @@ export default function Header({ theme = 'light', active = 'home' }: HeaderProps
             <div className="flex items-center justify-between pb-6 border-b border-white/10">
               <div className="relative h-9 w-40">
                 <Image
-                  src="/images/logo-white.webp"
+                  src="/images/logo-white-hexagon.webp"
                   alt="AJ Medical"
                   fill
                   className="object-contain object-left"

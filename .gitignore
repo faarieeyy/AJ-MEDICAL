@@ -38,10 +38,13 @@ scratch_*.*
 crop_*.*
 hand_*.*
 temp_*.*
-temp_p2_imgs/
+temp_*/
 crops/
 pdf_page*.jpg
 pdf_raw_images/
 pdf_renders/
 extracted_assets/
 *.pdf
+*_reference.png
+*_background.png
+
