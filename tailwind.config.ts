@@ -33,7 +33,20 @@ const config: Config = {
       borderRadius: {
         '4xl': '2rem',
         '5xl': '2.5rem',
-      }
+      },
+      keyframes: {
+        wiggle: {
+          '0%': { transform: 'translateY(-4px) rotate(0deg) scale(1.015)' },
+          '20%': { transform: 'translateY(-5px) rotate(-1.5deg) scale(1.02)' },
+          '40%': { transform: 'translateY(-6px) rotate(1.5deg) scale(1.02)' },
+          '60%': { transform: 'translateY(-5px) rotate(-0.8deg) scale(1.02)' },
+          '80%': { transform: 'translateY(-5px) rotate(0.8deg) scale(1.02)' },
+          '100%': { transform: 'translateY(-5px) rotate(0deg) scale(1.02)' },
+        },
+      },
+      animation: {
+        wiggle: 'wiggle 0.7s ease-in-out forwards',
+      },
     },
   },
   plugins: [],

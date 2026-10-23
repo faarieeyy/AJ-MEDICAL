@@ -66,3 +66,72 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* =========================================================================
+   Interactive Wiggle Animation on Hover for Boxy Cards & Components
+========================================================================= */
+@keyframes card-wiggle {
+  0% {
+    transform: translateY(-4px) rotate(0deg) scale(1.015);
+  }
+  20% {
+    transform: translateY(-5px) rotate(-1.3deg) scale(1.02);
+  }
+  40% {
+    transform: translateY(-6px) rotate(1.3deg) scale(1.02);
+  }
+  60% {
+    transform: translateY(-5px) rotate(-0.8deg) scale(1.02);
+  }
+  80% {
+    transform: translateY(-5px) rotate(0.8deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(-5px) rotate(0deg) scale(1.02);
+  }
+}
+
+@keyframes icon-wiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.12);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.12);
+  }
+}
+
+.hover-wiggle {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.hover-wiggle:hover {
+  animation: card-wiggle 0.7s ease-in-out forwards;
+}
+
+.hover-wiggle-icon:hover {
+  animation: icon-wiggle 0.5s ease-in-out infinite;
+}
+
+/* Global hover effect for boxy cards across all pages */
+.rounded-3xl.shadow-sm,
+.rounded-3xl.shadow-md,
+.rounded-2xl.shadow-md,
+.rounded-3xl.border,
+.rounded-2xl.border {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+/* When hovering over interactive boxy card elements */
+a.rounded-3xl:hover,
+a.rounded-2xl:hover,
+button.rounded-3xl:hover,
+button.rounded-2xl:hover,
+.group:hover .rounded-3xl,
+.card-wiggle:hover {
+  animation: card-wiggle 0.7s ease-in-out forwards;
+}
+
